@@ -33,6 +33,14 @@ export class LinechartComponent implements OnInit {
       },      
       options: {
         responsive: false,
+        legend: {
+          display: true,
+          position: "right",
+          labels: {
+            fontColor: "#000080",
+          },
+          align: "start"
+        },
         scales: {
           yAxes: [{
             ticks: {
