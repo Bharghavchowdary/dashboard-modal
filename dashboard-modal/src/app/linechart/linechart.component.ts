@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';  
 import * as Chart from 'chart.js';
-  
+
 @Component({  
   selector: 'app-linechart',  
   templateUrl: './linechart.component.html',  
@@ -21,7 +21,7 @@ export class LinechartComponent implements OnInit {
       data: {
           labels: this.Time,
           datasets: [{
-              label: '# of Votes',
+              label: 'Temperature',
               data: this.Temperature,
               backgroundColor: [
                 'rgba(255, 153, 255,0.1)'                
