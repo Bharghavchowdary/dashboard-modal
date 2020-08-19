@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-import { Color, Label, MultiDataSet } from 'ng2-charts';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-app-dashboard-modal',
@@ -71,6 +70,7 @@ export class AppDashboardModalComponent implements OnInit {
   ];
   lineChartLegend = true;
   lineChartType = 'line';
+
   onValChange() {
     this.isToggle = !this.isToggle;
   }
