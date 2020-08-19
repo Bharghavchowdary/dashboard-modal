@@ -1,25 +1,29 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div>
-                <mat-slide-toggle class="tp-margin" [checked]="false" (change)="onValChange()">
-                    Slide!
-                </mat-slide-toggle>
-            </div>
-            <div *ngIf="isToggle; then chartView; else gridView"></div>
-            <ng-template #chartView>
-                <ag-grid-angular style="width: 500px; height: 200px;" class="ag-theme-alpine" [rowData]="data"
-                    [columnDefs]="columnDefs">
-                </ag-grid-angular>
-            </ng-template>
-            <ng-template #gridView>
-                <div class="chart-container" style="position: relative; height:40vh; width:70vw">
-                    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-                        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-                        >
-                    </canvas>
+            <div class="card">
+                <div class="card-title">
+                    <mat-slide-toggle class="tp-margin" [checked]="false" (change)="onValChange()">
+                        Slide!
+                    </mat-slide-toggle>
                 </div>
-            </ng-template>
+                <div class="card-body">
+                    <div *ngIf="isToggle; then chartView; else gridView"></div>
+                    <ng-template #chartView>
+                        <ag-grid-angular style="height: 200px;" class="ag-theme-alpine" [rowData]="data"
+                            [columnDefs]="columnDefs">
+                        </ag-grid-angular>
+                    </ng-template>
+                    <ng-template #gridView>
+                        <div class="chart-container" style="position: relative; height:40vh;">
+                            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                                [chartType]="lineChartType">
+                            </canvas>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
         </div>
     </div>
 </div>
