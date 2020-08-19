@@ -1,4 +1,4 @@
 export class Data {  
-    Temperature :string;  
-    Time:string;  
+    PlayerName :string;  
+    Run:string;  
   }

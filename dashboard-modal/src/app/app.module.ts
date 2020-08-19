@@ -8,11 +8,13 @@ import { ChartsModule } from 'ng2-charts';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppDashboardModalComponent } from './app-dashboard-modal/app-dashboard-modal.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { LinechartComponent } from './linechart/linechart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppDashboardModalComponent
+    AppDashboardModalComponent,
+    LinechartComponent
   ],
   imports: [
     BrowserModule,

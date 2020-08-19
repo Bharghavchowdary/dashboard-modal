@@ -1,0 +1,21 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <mat-slide-toggle class="tp-margin" [checked]="false" (change)="onValChange()">
+                    Slide!
+                </mat-slide-toggle>
+            </div>
+            <div>
+                <canvas [hidden]="isToggle" id="canvas" width="700" height="400"></canvas>
+            </div>
+            <div  *ngIf="isToggle" >
+                <ag-grid-angular style="width: 500px; height: 200px;" class="ag-theme-alpine" [rowData]="data"
+                    [columnDefs]="columnDefs">
+                </ag-grid-angular>
+            </div>
+        </div>
+    </div>
+</div>
