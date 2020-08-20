@@ -19,8 +19,8 @@ export class DashboardScreenComponent implements OnInit {
   Data = [];
   isToggle: boolean = false;
   columnDefs = [
-    { field: 'Time' },
-    { field: 'Temperature' }
+    { field: 'Time', filter: 'agTextColumnFilter' },
+    { field: 'Temperature', filter: 'agTextColumnFilter' }
   ];
   chartData: ChartDataSets[] = [
     {
@@ -77,12 +77,27 @@ export class DashboardScreenComponent implements OnInit {
   onValChange() {
     this.isToggle = !this.isToggle;
   }
-  changeChart(e) {
+  onChangeChart(e) {
     this.chartsType = e.target.value;
     this.chartType = this.chartsType;
     this.chartLabels = this.Label;
     this.chartData.forEach(item => {
       item.data = this.Data
     });
+  }
+  onChartClick(e) {
+    //Below code works for piechart
+    if (e.active.length > 0) {
+      const chart = e.active[0]._chart;
+      const activePoints = chart.getElementAtEvent(e.event);
+      if (activePoints.length > 0) {
+        // get the internal index of slice in pie chart
+        const clickedElementIndex = activePoints[0]._index;
+        const label = chart.data.labels[clickedElementIndex];
+        // get value by index
+        const value = chart.data.datasets[0].data[clickedElementIndex];
+        alert(clickedElementIndex+ '\n' +label + '\n' + value);
+      }
+    }
   }
 }
