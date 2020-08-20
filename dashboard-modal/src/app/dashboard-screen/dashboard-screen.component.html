@@ -5,12 +5,29 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-title">
+                    <mat-slide-toggle class="tp-margin" [checked]="false" (change)="onValChange()">
+                        Slide!
+                    </mat-slide-toggle>
                     <select [formControl]="name" (change)="changeChart($event)" style="float: right; background-color: #caf7f3;">
                         <option [value]="chartsType" *ngFor="let chartsType of chartsTypes"> {{chartsType}}</option>
                     </select>
                 </div>
                 <div class="card-body">
-                    Body
+                    <div  *ngIf="isToggle" >
+                        <ag-grid-angular style="width: 900; height: 200px;" class="ag-theme-alpine" [rowData]="data"
+                            [columnDefs]="columnDefs">
+                        </ag-grid-angular>
+                    </div>
+                    <div *ngIf="!isToggle" class="chart-wrapper">
+                        <canvas baseChart 
+                            [(datasets)]="chartData" 
+                            [(labels)]="chartLabels" 
+                            [(options)]="chartOptions"
+                            [(colors)]="chartColors" 
+                            [(legend)]="chartLegend" 
+                            [(chartType)]="chartType" >
+                        </canvas>
+                    </div>
                 </div>
             </div>            
         </div>
