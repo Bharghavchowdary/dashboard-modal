@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -13,8 +13,8 @@ export class AppserviceService {
 
   constructor(private http: HttpClient) { }
 
-   // Read
-   getData() {
+  // Read
+  getData() {
     return [
       { Time: '01', Temperature: 50 },
       { Time: '02', Temperature: 55 },
@@ -26,4 +26,19 @@ export class AppserviceService {
     ];
     //this.http.get(`${this.apiUrl}`);
   }
+
+  getChartData(): Observable<any> {
+    return new Observable(() => {
+      [
+        { Time: '01', Temperature: 50 },
+        { Time: '02', Temperature: 55 },
+        { Time: '03', Temperature: 60 },
+        { Time: '04', Temperature: 65 },
+        { Time: '05', Temperature: 50 },
+        { Time: '06', Temperature: 55 },
+        { Time: '07', Temperature: 40 },
+      ];
+    });
+  };
+
 }
