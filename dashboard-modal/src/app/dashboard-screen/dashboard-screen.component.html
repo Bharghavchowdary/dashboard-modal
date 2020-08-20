@@ -1,0 +1,18 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-title">
+                    <select [formControl]="name" (change)="changeChart($event)" style="float: right; background-color: #caf7f3;">
+                        <option [value]="chartsType" *ngFor="let chartsType of chartsTypes"> {{chartsType}}</option>
+                    </select>
+                </div>
+                <div class="card-body">
+                    Body
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

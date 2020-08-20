@@ -9,12 +9,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppDashboardModalComponent } from './app-dashboard-modal/app-dashboard-modal.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { LinechartComponent } from './linechart/linechart.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardScreenComponent } from './dashboard-screen/dashboard-screen.component';
+import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppDashboardModalComponent,
-    LinechartComponent
+    LinechartComponent,
+    DashboardScreenComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,10 @@ import { LinechartComponent } from './linechart/linechart.component';
     BrowserAnimationsModule,
     ChartsModule,
     MatSlideToggleModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
