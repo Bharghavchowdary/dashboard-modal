@@ -3,6 +3,7 @@ import { AppserviceService } from '../appservice.service';
 import { FormControl } from '@angular/forms';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { DataSet, ColumnDefs } from '../data'
 
 
 @Component({
@@ -11,28 +12,16 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./dashboard-screen.component.scss']
 })
 export class DashboardScreenComponent implements OnInit {
-  data: any;
+  gridData: any[] = [];
   name = new FormControl('select');
   chartsTypes = ['bar', 'radar', 'pie', 'line'];
   chartsType: any;
   Label = [];
   Data = [];
   isToggle: boolean = false;
-  columnDefs = [
-    { field: 'Time', filter: 'agTextColumnFilter' },
-    { field: 'Temperature', filter: 'agTextColumnFilter' }
-  ];
-  chartData: ChartDataSets[] = [
-    {
-      data: this.Data,
-      lineTension: 0,
-      borderWidth: 2,
-      pointRadius: 2,
-      pointBackgroundColor: 'white',
-      cubicInterpolationMode: 'monotone'
-    }
-  ];
-
+  columnDefs: ColumnDefs[] = [];
+  chartData: ChartDataSets[] = [];
+  datasets: any[] = [];
   chartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -53,12 +42,16 @@ export class DashboardScreenComponent implements OnInit {
       ]
     }
   };
-  chartLabels: Label[] = this.Label;
+  chartLabels: Label[] = [];
   chartColors: Color[] = [
+    {
+      borderColor: 'rgb(179, 255, 255)',
+      backgroundColor: 'rgba(179, 255, 255,0.1)',
+    },
     {
       borderColor: 'rgb(255, 153, 255)',
       backgroundColor: 'rgba(255, 153, 255,0.1)',
-    }
+    },
   ];
   chartLegend = true;
   chartType = 'line';
@@ -66,13 +59,35 @@ export class DashboardScreenComponent implements OnInit {
 
   ngOnInit() {
     this.getChartData();
+    this.chartData = this.datasets;
+    this.chartLabels = this.Label;
   }
   getChartData(): void {
-    this.data = this.appserviceService.getData();
-    this.data.forEach(i => {
-      this.Data.push(i.Temperature);
-      this.Label.push(i.Time);
+    let chartInfo = this.appserviceService.getChartDataSets();
+    let chartdatasets = chartInfo.chartDataSets;
+    chartdatasets.forEach(i => this.addDatasets(i));
+    //this.data.forEach(i => this.addDatasets(i));
+  }
+
+  addDatasets(dataSetarr) {
+    let chartData = [];
+    //Adding Coloum defs for grid view
+    if (Object.keys(dataSetarr.prodData[0]).length > 0 && !(this.columnDefs.length > 0)) {
+      Object.keys(dataSetarr.prodData[0]).forEach(i => {
+        this.columnDefs.push(new ColumnDefs(i));
+      })
+    }
+    // Adding label and data to chart
+    dataSetarr.prodData.forEach(i => {
+      chartData.push(Object.values(i)[1]);
+      this.Label.push(Object.values(i)[0]);
+      this.gridData.push(i);
     });
+    //Passing multiple datasaets to charts
+    this.datasets.push(new DataSet(chartData, dataSetarr.prodName));
+    //Taking distinct labels on x-axis
+    this.Label = [...new Set(this.Label)];
+
   }
   onValChange() {
     this.isToggle = !this.isToggle;
@@ -81,9 +96,6 @@ export class DashboardScreenComponent implements OnInit {
     this.chartsType = e.target.value;
     this.chartType = this.chartsType;
     this.chartLabels = this.Label;
-    this.chartData.forEach(item => {
-      item.data = this.Data
-    });
   }
   onChartClick(e) {
     //Below code works for piechart
@@ -96,7 +108,7 @@ export class DashboardScreenComponent implements OnInit {
         const label = chart.data.labels[clickedElementIndex];
         // get value by index
         const value = chart.data.datasets[0].data[clickedElementIndex];
-        alert(clickedElementIndex+ '\n' +label + '\n' + value);
+        alert(clickedElementIndex + '\n' + label + '\n' + value);
       }
     }
   }
